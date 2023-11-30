@@ -219,12 +219,16 @@
 
         <div class="radio-group">
           <div class="radio-field">
-            <input type="radio" id="raw" name="equipment" value="Raw" onchange="calc()" checked>
-            <label for="raw" class="label-radio">Raw</label>
+            <input type="radio" id="ipf" name="equipment" value="IPF" onchange="calc()" checked>
+            <label for="ipf" class="label-radio">IPF</label>
           </div>
           <div class="radio-field">
             <input type="radio" id="single" name="equipment" value="Single-ply" onchange="calc()">
             <label for="single" class="label-radio">Single-ply</label>
+          </div>
+          <div class="radio-field">
+            <input type="radio" id="multi" name="equipment" value="Multi-ply" onchange="calc()">
+            <label for="multi" class="label-radio">Multi-ply</label>
           </div>
         </div>
 
@@ -234,8 +238,16 @@
             <label for="sbd" class="label-radio">3-Lift</label>
           </div>
           <div class="radio-field">
+            <input type="radio" id="s" name="event" value="S" onchange="calc()">
+            <label for="s" class="label-radio">Squat</label>
+          </div>
+          <div class="radio-field">
             <input type="radio" id="b" name="event" value="B" onchange="calc()">
             <label for="b" class="label-radio">Bench</label>
+          </div>
+          <div class="radio-field">
+            <input type="radio" id="d" name="event" value="D" onchange="calc()">
+            <label for="d" class="label-radio">Deadlift</label>
           </div>
         </div>
 
@@ -268,23 +280,43 @@
 
       var PARAMETERS = {
         "M": {
-          "Raw": {
-            "SBD": [1199.72839, 1025.18162, 0.009210],
-            "B": [320.98041, 281.40258, 0.01008]
+          "IPF": {
+            "SBD": [1147.888341, 2150.089305, 0.02480130271],
+            "S": [434.4436619, 1006.9856, 0.03028899731],
+            "B": [393.7772967, 702.7243775, 0.02253247936],
+            "D": [364.5585203, 1642.560202, 0.04597597283]
           },
           "Single-ply": {
-            "SBD": [1236.25115, 1449.21864, 0.01644],
-            "B": [381.22073, 733.79378, 0.02398]
-          }
+            "SBD": [1143.702039, 2647.247391, 0.02791830463],
+            "S": [492.5736861, 714.6445719, 0.01998225422],
+            "B": [501.334161, 678.3697464, 0.01429608034],
+            "D": [375.2884435, 1447.156834, 0.04248611622]
+          },
+          "Multi-ply": {
+            "SBD": [1279.445496, 3623.426673, 0.02992023766],
+            "S": [582.5510027, 817.9800954, 0.01898997219],
+            "B": [511.141387, 893.7472598, 0.01856395583],
+            "D": [384.6861762, 1506.890416, 0.04203965423]
+          }  
         },
         "F": {
-          "Raw": {
-            "SBD": [610.32796, 1045.59282, 0.03048],
-            "B": [142.40398, 442.52671, 0.04724]
+          "IPF": {
+            "SBD": [728.0060151, 1968.303685, 0.0402142123],
+            "S": [321.0905662, 374.7256788, 0.02176208151],
+            "B": [228.1310116, 371.5427854, 0.02902524331],
+            "D": [258.1750207, 620.8047508, 0.04021901717]
           },
           "Single-ply": {
-            "SBD": [758.63878, 949.31382, 0.02435],
-            "B": [221.82209, 357.00377, 0.02937]
+            "SBD": [749.5457261, 1336.995274, 0.03159691025],
+            "S": [320.9953045, 368.4683281, 0.02132931142],
+            "B": [239.7182475, 445.729424, 0.02984205589],
+            "D": [247.3448812, 1265.061724, 0.05834448635]
+          },
+          "Multi-ply": {
+            "SBD": [1010.50352, 1544.51559, 0.02306040561],
+            "S": [408.003378, 902.7955924, 0.03160045464],
+            "B": [233.0764562, 872.2343477, 0.04595657229],
+            "D": [282.8777155, 798.1376126, 0.04147574617]
           }
         }
       };
