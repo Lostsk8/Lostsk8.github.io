@@ -1,206 +1,328 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>
-        LifterCalc - IPF GL | DOTS | WILKS Calculator
-    </title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Tool for powerlifters to calculate IPF GL, DOTS, Wilks-2, IPF, and Wilks Scores">
-	
-	<meta property='og:title' content='LifterCalc'/>
-	<meta property='og:image' content='https://www.liftercalc.com/lclogo.png'/>
-	<meta property='og:description' content='Tool for powerlifters to calculate IPF GL, DOTS, Wilks-2, IPF, and Wilks Scores'/>
-	<meta property='og:url' content='https://www.liftercalc.com'/>
-	
-    <script>/*  LifterCalc calculates various strength coefficients used to compare powerlifters.
-            Copyright (C) 2020  Perlin
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1">
+    <meta name="application-name" content="IPF GL Points Calculator">
+    <meta name="description" content="IPF GL Points Calculator, from your friends at OpenPowerlifting">
+    <meta name="keywords" content="Goodlift Calculator,Goodlift Points,IPF GL points,IPF GL score,IPF GL formula,IPF,USAPL,USAPL points,powerlifting,calculator,dots">
+    <link rel="shortcut icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
 
-            This program is free software: you can redistribute it and/or modify
-            it under the terms of the GNU Affero General Public License as
-            published by the Free Software Foundation, either version 3 of the
-            License, or (at your option) any later version.
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: Montserrat, sans-serif;
+        margin: 0;
+        min-height: 100%;
+        line-height: 20px;
+        background-color: #fff;
+        color: #313131;
+      }
+      a {
+        color: #f14b3e;
+      }
+      #background {
+        height: 280px;
+        color: #fff;
+        background-image: linear-gradient(to right, #fdd017, #e96809);
+      }
+      #title {
+        height: 38px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-bottom-style: solid;
+        background-color: #fff;
+        color: #fff;
+      }
+      h1 {
+        color: #e96809;
+        font-size: 16px;
+        line-height: 16px;
+        margin: 0px auto;
+      }
+      h2 {
+        font-size: 82px;
+        font-weight: 700;
+        line-height: 82px;
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 10px;
+      }
+      h3 {
+        font-size: 32px;
+        font-weight: 400;
+        line-height: 32px;
+        text-align: center;
+        margin-top: 12px;
+        margin-bottom: 10px;
+      }
+      #form-card {
+        display: block;
+        max-width: 326px;
+        margin-top: -70px;
+        margin-right: auto;
+        margin-left: auto;
+        padding: 27px 40px 15px 40px;
+        border-radius: 5px;
+        background-color: #fff;
+        box-shadow: 0 0 43px 0 hsla(0, 0%, 64%, .45);
+      }
+      #inner-form {
+        margin: 0 0 15px;
+      }
+      .field {
+        display: flex;
+        justify-content: space-between;
+      }
+      label {
+        font-weight: 400;
+        font-size: 18px;
+      }
+      .radio-group {
+        display: flex;
+        padding-top: 15px;
+        padding-bottom: 11px;
+        border-bottom: 1px solid #cdcdcd;
+      }
+      .radio-group.last {
+        margin-bottom: -13px;
+        border-bottom-width: 0px;
+      }
+      .radio-field {
+        display: block;
+        margin-bottom: 5px;
+        padding-left: 20px;
+      }
+      .label-radio {
+        min-width: 70px;
+        margin-right: 20px;
+        display: inline-block;
+        cursor: pointer;
+        margin-bottom: 0;
+      }
+      input[type="radio"] {
+        margin: 4px 0 0;
+        line-height: normal;
+        float: left;
+        margin-left: -20px;
+        margin-top: 3px;
+        padding: 0;
+        cursor: pointer;
+      }
+      .label-number {
+        display: block;
+        padding-top: 6px;
+        padding-right: 25px;
+        margin-bottom: 5px;
+      }
+      input[type="number"] {
+        width: 110px;
+        display: block;
+        padding: 8px 12px;
+        margin-bottom: 10px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #333333;
+        vertical-align: middle;
+        background-color: #fff;
+        border: 1px solid #cdcdcd;
+        border-radius: 5px;
+      }
+      input[type="number"]:focus {
+        border-color: gold;
+      }
+      #calculate {
+        width: 247px;
+        height: 50px;
+        margin-top: 30px;
+        border-radius: 30px;
+        background-image: -webkit-gradient(linear, left top, right top, from(#fe685e), to(#dc372d));
+        background-image: linear-gradient(90deg, #fe685e, #dc372d);
+        font-weight: 400;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        display: inline-block;
+        padding: 9px 15px;
+        color: #fff;
+        border: 0;
+        font-size: 18px;
+        font-family: Montserrat, sans-serif;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      #calculate:hover {
+        box-shadow: 0 7px 10px 0 rgba(0, 0, 0, .2);
+      }
+      footer {
+        display: block;
+        margin: 40px auto 0px;
+        padding-bottom: 30px;
+        font-size: 12px;
+        line-height: 27px;
+        text-align: center;
+      }
+    </style>
 
-            This program is distributed in the hope that it will be useful,
-            but WITHOUT ANY WARRANTY; without even the implied warranty of
-            MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-            GNU Affero General Public License for more details.
+    <title>IPF GL Points Calculator</title>
+  </head>
+  <body>
+    <div id="background">
+      <div id="title">
+        <h1>OpenPowerlifting IPF GL Points Calculator</h1>
+      </div>
 
-            You should have received a copy of the GNU Affero General Public License
-            along with this program.  If not, see <https://www.gnu.org/licenses/>.
-         */</script>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
-    <style>body {
-            font-family:'Open Sans',sans-serif;
-            /*background-color: #333333;
-            color: #eeeeee;*/
-        }
-        a{
-            color: inherit;
-        }
-        #container{
-            margin: 0 auto;
-            max-width: 750px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        #app{
-            margin-bottom: 200px;
-        }
-        .bold-label{
-            font-weight: bold;
-            font-size: 14px;
-            display: inline-block;
-        }
-        label{
-            font-weight: normal;
-            font-size: 18px;
-        }
-        .half-width{
-            width: 50%;
-            float: left;
-        }
-        .width-40{
-            width: 40%;
-            float: right;
-        }
-        .radio-selection{
-            margin-bottom: 10px;
-        }
-        .margintop-4{
-            margin-top: 4px;
-        }
-        input::-webkit-outer-spin-button,
-        input::-webkit-inner-spin-button {
-          -webkit-appearance: none;
-          margin: 0;
-        }
-        input[type=number]{
-            background: #EBEBEB;
-            border: none;
-            font-size: 16px;
-            padding: 5px 10px;
-            border-radius: 5px;
-            -moz-appearance: textfield;
-        }
-        input[type=submit]{
-            background-color: #EBEBEB;
-            border: none;
-            padding: 16px 32px;
-            margin: 4px 2px;
-            cursor: pointer;
-            border-radius: 15px;
-        }
-        input[type=radio]{
-            vertical-align: text-top;
-            margin-top: 4px;
-        }
-        input{
-            font-family:'Open Sans',sans-serif;
-        }
-        .clear{
-            clear: both;
-        }
-        .padding-5-0{
-            padding: 5px 0;
-        }
-        h1{
-            font-size: 64px;
-            font-weight: normal;
-            margin: 0;
-            cursor: default;
-        }
-        .error{
-            color: #ff0033;
-        }
-        .footer{
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        .horizontal-line{
-            width: 100%;
-            border-style: none none solid none;
-            border-color: #000000;
-            border-width: thin;
-            padding-top: 10px;
-            margin-bottom: 5px;
-        }
-        .small-label{
-            font-size: 14px;
-            line-height: 150%;
-        }
-        .result-box{
-            display: inline-block;
-            border: 1px solid #D3D3D3;
-            border-radius: 5px;
-            padding: 8px 12px;
-            width: 275px;
-            margin-bottom: 20px;
-        }
-        .score-box{
-            float: left;
-            width: 30%;
-            margin-top: 10px;
-        }
-        .weight{
-            font-weight: bold;
-        }
-        .score{
-            font-size: 18px;
-            font-weight: bold;
-        }
-        .info{
-            font-size: 16px;
-            margin-bottom: 20px;
-        }
-        .toggle{
-            display: inline-block;
-            cursor: pointer;
-            float: right;
-            padding: 0 5px;
-            font-weight: bold;
-        }
-        .full-width{
-            display: inline-block;
-            width: 100%;
-        }
-        .hidden{
-            display: none;
-        }
-        .flex-container{
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        .history-panel{
-            width: 300px;
-            padding: 10px 20px;
-            background-color: #eeeeee;
-            border-radius: 5px;
-        }
-        form{
-            width: 300px;
-            margin: 0 20px 20px 0;
-        }</style>
-</head>
-
-<body>
-    <div id="container">
-        <h1>LifterCalc</h1>
-        <div class="info">Enter information to calculate your IPF-GL, Wilks, and DOTS scores</div>
-        <div id="app"></div>
+      <div id="points">
+        <h2 id="display-glp"></h2>
+        <h3 id="display-dots"></h3>
+      </div>
     </div>
-    <div class="footer">
-        Find source code and file issues on <a href="https://www.github.com/perlinlim/liftercalc" target="_blank">Github</a>
-        <div class="clear padding-5-0"></div>
-        Formulas are pulled from
-        <a href="https://www.powerlifting.sport/fileadmin/ipf/data/ipf-formula/Models_Evaluation-I-2020.pdf" target="_blank">this pdf</a> by the
-        <a href="https://www.powerlifting.sport" target="_blank">International Powerlifting Federation</a>
-        <div class="clear padding-5-0"></div>
-        Created by <a href="https://www.perlinlim.com" target="_blank">Perlin Lim</a>
+
+    <div id="form-card">
+      <div id="inner-form">
+        <div class="field">
+          <label for="total" class="label-number">Total</label>
+          <input type="number" id="total" name="total" min="0" step="2.5" oninput="calc()">
+        </div>
+
+        <div class="field">
+          <label for="bodyweight" class="label-number">Bodyweight</label>
+          <input type="number" id="bodyweight" name="bodyweight" min="0" step="0.1" oninput="calc()">
+        </div>
+
+        <div class="radio-group">
+          <div class="radio-field">
+            <input type="radio" id="kilograms" name="units" value="kg" onchange="calc()" checked>
+            <label for="kilograms" class="label-radio">Kilos</label>
+          </div>
+          <div class="radio-field">
+            <input type="radio" id="pounds" name="units" value="lbs" onchange="calc()">
+            <label for="pounds" class="label-radio">Pounds</label>
+          </div>
+        </div>
+
+        <div class="radio-group">
+          <div class="radio-field">
+            <input type="radio" id="men" name="sex" value="M" onchange="calc()" checked>
+            <label for="men" class="label-radio">Men</label>
+          </div>
+          <div class="radio-field">
+            <input type="radio" id="women" name="sex" value="F" onchange="calc()">
+            <label for="women" class="label-radio">Women</label>
+          </div>
+        </div>
+
+        <div class="radio-group">
+          <div class="radio-field">
+            <input type="radio" id="raw" name="equipment" value="Raw" onchange="calc()" checked>
+            <label for="raw" class="label-radio">Raw</label>
+          </div>
+          <div class="radio-field">
+            <input type="radio" id="single" name="equipment" value="Single-ply" onchange="calc()">
+            <label for="single" class="label-radio">Single-ply</label>
+          </div>
+        </div>
+
+        <div class="radio-group last">
+          <div class="radio-field">
+            <input type="radio" id="sbd" name="event" value="SBD" onchange="calc()" checked>
+            <label for="sbd" class="label-radio">3-Lift</label>
+          </div>
+          <div class="radio-field">
+            <input type="radio" id="b" name="event" value="B" onchange="calc()">
+            <label for="b" class="label-radio">Bench</label>
+          </div>
+        </div>
+
+        <input type="button" value="Calculate" id="calculate" onclick="calc()">
+      </div>
     </div>
-    <script src="/main.186cb047.js"></script>
-</body>
+
+    <footer>
+      From your friends at <a href="https://www.openpowerlifting.org">OpenPowerlifting</a>.<br>
+      Design by <a href="https://tommydcreative.com/">Tommy D Creative</a>.<br>
+      File issues and make changes in <a href="https://gitlab.com/openpowerlifting/ipf-points-calculator">the project GitLab</a>.<br>
+      Not affiliated with <a href="https://www.powerlifting.sport/">the IPF</a>.<br>
+      Want to support more powerlifting software? <a href="https://www.patreon.com/openpowerlifting">Donate to the cause!</a>
+    </footer>
+
+    <script>
+      // @license magnet:?xt=urn:btih:0b31508aeb0634b347b8270c7bee4d411b5d4109&dn=agpl-3.0.txt AGPL-v3-or-Later
+      function dots_poly(a,b,c,d,e,x) {
+        var x2=x*x,x3=x2*x,x4=x3*x;
+        return 500.0 / (a*x4+b*x3+c*x2+d*x+e);
+      }
+      function dots_men(bw) {
+        bw = Math.min(Math.max(bw, 40.0), 210.0);
+        return dots_poly(-0.0000010930,0.0007391293,-0.1918759221,24.0900756,-307.75076,bw);
+      }
+      function dots_women(bw) {
+        bw = Math.min(Math.max(bw, 40.0), 150.0);
+        return dots_poly(-0.0000010706,0.0005158568,-0.1126655495,13.6175032,-57.96288,bw);
+      }
+
+      var PARAMETERS = {
+        "M": {
+          "Raw": {
+            "SBD": [1199.72839, 1025.18162, 0.009210],
+            "B": [320.98041, 281.40258, 0.01008]
+          },
+          "Single-ply": {
+            "SBD": [1236.25115, 1449.21864, 0.01644],
+            "B": [381.22073, 733.79378, 0.02398]
+          }
+        },
+        "F": {
+          "Raw": {
+            "SBD": [610.32796, 1045.59282, 0.03048],
+            "B": [142.40398, 442.52671, 0.04724]
+          },
+          "Single-ply": {
+            "SBD": [758.63878, 949.31382, 0.02435],
+            "B": [221.82209, 357.00377, 0.02937]
+          }
+        }
+      };
+
+      function getRadioValue(name) {
+        var radios = document.getElementsByName(name);
+        for (var i = 0; i < radios.length; ++i) {
+          if (radios[i].checked) { return radios[i].value; }
+        }
+      }
+
+      function calc() {
+        var units = getRadioValue("units");
+        var sex = getRadioValue("sex");
+        var equipment = getRadioValue("equipment");
+        var event = getRadioValue("event");
+        var bw = Number(document.getElementById("bodyweight").value);
+        var total = Number(document.getElementById("total").value);
+
+        if (units === "lbs") {
+          bw = bw / 2.20462262;
+          total = total / 2.20462262;
+        }
+
+        var dots = total * ((sex === "M") ? dots_men(bw) : dots_women(bw));
+
+        var params = PARAMETERS[sex][equipment][event];
+        var denom = params[0] - (params[1] * Math.exp(-1.0 * params[2] * bw))
+        var glp = (denom === 0) ? 0 : Math.max(0, total * 100.0 / denom)
+        if (isNaN(glp) || bw < 35) {
+          glp = 0;
+        }
+
+        document.getElementById("display-glp").innerHTML = glp.toFixed(2);
+        document.getElementById("display-dots").innerHTML = dots.toFixed(2) + " Dots";
+      }
+      document.addEventListener("DOMContentLoaded", function(e){calc()});
+      // @license-end
+    </script>
+  </body>
 </html>
